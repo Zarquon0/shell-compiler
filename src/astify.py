@@ -2,9 +2,9 @@ from shasta.json_to_ast import to_ast_node
 import logging
 import libdash.parser
 import libdash
-import shseer.reporter as reporter 
-from shseer.error_report import ParseError
-from shseer.exceptions import ParseException 
+# import shseer.reporter as reporter 
+# from shseer.error_report import ParseError
+# from shseer.exceptions import ParseException 
 import os
 import sys
 import traceback
@@ -38,22 +38,23 @@ def parse_shell_to_asts(input_script_path : str):
         return typed_ast_objects
     except Exception as e:
         logging.debug("Parsing error!", traceback.format_exc())
-        parse_error_report = ParseError(str(e))
-        reporter.REPORTER.add_parse_error(parse_error_report)
-        raise ParseException(str(e))
+        raise Exception("ERROR:", e)
+        # parse_error_report = ParseError(str(e))
+        # reporter.REPORTER.add_parse_error(parse_error_report)
+        # raise ParseException(str(e))
 
 def parse_shell_to_asts_interactive(input_script_path: str):
     return libdash.parser.parse(input_script_path)
 
-def inject_monitors(input_script_path: str):
+def print_nodes(input_script_path: str):
     asts = parse_shell_to_asts(input_script_path)
-    for node, _text, _start, _end in asts:
-        print(node)            # High-level view
-        print(vars(node))      # Fields
-        print(dir(node))       # Attributes and methods
+    for node, text, _start, _end in asts:
+        print(node.__dict__)            # High-level view
+        #print(vars(node))      # Fields
+        #print(text)
 
 if __name__=="__main__":
-    if len(sys.argv) == 3:
-        inject_monitors(sys.argv[2])
+    if len(sys.argv) == 2:
+        print_nodes(sys.argv[1])
     else:
         print("Please provide a shell script to parse")

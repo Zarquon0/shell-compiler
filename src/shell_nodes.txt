@@ -1,0 +1,10 @@
+## IGNORING BASH NODES ##
+PipeNode - items: list[Command]
+AndNode, OrNode, SemiNode - left_operand: Command, right_operand: Command
+IfNode - cond: Command, then_b: Command, else_b: Command
+WhileNode - test: Command, body: Command
+SubshellNode, NotNode, DefunNode, ForNode - body: Command
+RedirNode, BackgroundNode(*) - node: Command
+CommandNode, CaseNode - Dead End
+
+(*) - BackgroundNode also has `after_ampersand: Command | None` but this appears to only be used in Bash

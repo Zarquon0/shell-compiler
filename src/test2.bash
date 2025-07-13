@@ -1,0 +1,1 @@
+./streamonitor -d /path/to/dfa.bc
