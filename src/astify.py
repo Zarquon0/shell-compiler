@@ -49,6 +49,8 @@ def parse_shell_to_asts_interactive(input_script_path: str):
 def print_nodes(input_script_path: str):
     asts = parse_shell_to_asts(input_script_path)
     for node, text, _start, _end in asts:
+        if hasattr(node, "body"):
+                print(f"BODY TYPE: {type(node.body)}")
         print(node.__dict__)            # High-level view
         #print(vars(node))      # Fields
         #print(text)

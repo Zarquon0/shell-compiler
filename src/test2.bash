@@ -1,1 +1,1 @@
-./streamonitor -d /path/to/dfa.bc
+annotation file ‘foo.txt’ ‘[0-9]+’
